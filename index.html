@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Drive Anywhere: Generalizable End-to-end Autonomous Driving with Multi-modal Foundation Models">
+  <meta name="keywords" content="End-to-end Driving, Foundation Models, Multimodal LLMs">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NDrive Anywhere: Generalizable End-to-end Autonomous Driving with Multi-modal Foundation Models</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu is-hoverable">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#">
+        <span class="icon">
+            <i class="fas fa-home"></i>
+        </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link white-text">
+          Go To
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="#abstract">
+            Abstract
+          </a>
+          <a class="navbar-item" href="#video">
+            Video
+          </a>
+          <a class="navbar-item" href="#overview">
+            Overview
+          </a>
+          <a class="navbar-item" href="#ood_generalization">
+            OOD Generalization On Diverse Scenes
+          </a>
+          <a class="navbar-item" href="#debugging_policies">
+            Debugging Policies
+          </a>
+          <a class="navbar-item" href="#data_aug">
+            Data Augmentation In Latent Space
+          </a>
+          <a class="navbar-item" href="#real_car">
+            Real-car Results
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Drive Anywhere: Generalizable End-to-end Autonomous Driving with Multi-modal Foundation Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zswang666.github.io/">Tsun-Hsuan Wang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.csail.mit.edu/person/alaa-maalouf">Alaa Maalouf</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://people.csail.mit.edu/weixy/">Wei Xiao</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://people.csail.mit.edu/yban/">Yutong Ban</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.mit.edu/~amini/">Alexander Amini</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://people.csail.mit.edu/rosman/">Guy Rosman</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://karaman.mit.edu/">Sertac Karaman</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://danielarus.csail.mit.edu/">Daniela Rus</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>MIT CSAIL</span>
+            <span class="author-block"><sup>2</sup>Shanghai Jiao Tong University</span>
+            <span class="author-block"><sup>3</sup>Toyota Research Institute (TRI)</span>
+            <span class="author-block"><sup>4</sup>MIT LIDS</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper (TBU)</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (TBU)</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://youtu.be/4n-DJf8vXxo"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zswang666/drive-anywhere"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (TBU)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              <span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        We harness the power of multimodal foundation
+        models in end-to-end driving to enhance generalization and
+        leverage language for data augmentation and debugging.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="abstract">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            As autonomous driving technology matures, end-
+            to-end methodologies have emerged as a leading strategy,
+            promising seamless integration from perception to control
+            via deep learning. However, existing systems grapple with
+            challenges such as unexpected open set environments and the
+            complexity of black-box models. At the same time, the evolution
+            of deep learning introduces larger, multimodal foundational
+            models, offering multi-modal visual and textual understanding.
+            In this paper, we harness these multimodal foundation models to
+            enhance the robustness and adaptability of autonomous driving
+            systems. We introduce a method to extract nuanced spatial fea-
+            tures from transformers and the incorporation of latent space
+            simulation for improved training and policy debugging. We use
+            pixel/patch-aligned feature descriptors to expand foundational
+            model capabilities to create an end-to-end multimodal driving
+            model, demonstrating unparalleled results in diverse tests. Our
+            solution combines language with visual perception and achieves
+            significantly greater robustness on out-of-distribution situations.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered" id="video">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/4n-DJf8vXxo?si=748_5ISeZiceyZhg?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="hero overview" id="overview">
+  <div class="hero-body overview-body">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <h2 class="title is-3 is-centered has-text-centered">Overview</h2>
+        
+        <div id="overview-wrapper"> 
+          <video id="video-overview1" autoplay muted loop playsinline>
+            <source src="./static/videos/overview1.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-justified">
+            Feature extraction from multimodal foundation models maps data in different modalities (e.g., image,
+            text) to feature vectors in a unified latent space. Middle: We introduce a generic method for patch-wise feature extraction
+            that preserves spatial information critical for end-to-end driving; this involves constructing attention masks anchored at each
+            patch location to focus on specific regions (depicted by the coloring) for the attention module. 
+          </h2>
+          <video id="video-overview2" autoplay muted loop playsinline>
+            <source src="./static/videos/overview2.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-justified">
+            The multimodal representations with language modality enable seamless integration with LLMs; this allows to simulate latent features by
+            substituting the original features F' with contextually relevant language features (e.g., trees → house, shop, building).
+          </h2>
+          <div class="video-overview-clear"></div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small" id="ood_generalization">
+  <div class="hero-body results-body">
+    <div class="container">
+      <h2 class="title is-3 is-centered has-text-centered" style="color:white;">OOD Generalization On Diverse Scenes</h2>
+
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-rfsda">
+          <video poster="" id="rfsda" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/rfsda_episode_0062.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-rsddc">
+          <video poster="" id="rsddc" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/rsddc_episode_0006.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-rsddc">
+          <video poster="" id="rsddc" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/rsddc_episode_0063.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!-- <div class="item item-rsdna">
+          <video poster="" id="rsdna" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/rsdna_episode_0013.mp4"
+                    type="video/mp4">
+          </video>
+        </div> --> <!-- height too short -->
+        <div class="item item-rwsdc">
+          <video poster="" id="rwsdc" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/rwsdc_episode_0075.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!-- <div class="item item-usddc">
+          <video poster="" id="usddc" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/usddc_episode_0018.mp4"
+                    type="video/mp4">
+          </video>
+        </div> --> <!-- too much distortion -->
+        <div class="item item-usdna">
+          <video poster="" id="usdna" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/usdna_episode_0005.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-usrda">
+          <video poster="" id="usrda" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/usrda_episode_0006.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-vista_video_id_episode_0000">
+          <video poster="" id="vista_video_id_episode_0000" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/vista_video_id_episode_0000.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-vista_video_id_episode_0023">
+          <video poster="" id="vista_video_id_episode_0023" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/vista_video_id_episode_0023.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-vista_video_id_episode_0059">
+          <video poster="" id="vista_video_id_episode_0059" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/vista_video_id_episode_0059.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-vista_video_id_episode_0072">
+          <video poster="" id="vista_video_id_episode_0072" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/vista_video_id_episode_0072.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-vista_video_ood_episode_0034">
+          <video poster="" id="vista_video_ood_episode_0034" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/vista_video_ood_episode_0034.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-vista_video2_ood_episode_0005">
+          <video poster="" id="vista_video2_ood_episode_0005" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/vista_video2_ood_episode_0005.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-vista_video3_episode_0062">
+          <video poster="" id="vista_video3_episode_0062" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/ood_examples/vista_video3_episode_0062.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <div class="container is-max-desktop">
+      <img src="./static/images/ood_table.png"
+            width="90%"
+            class="center"
+      />
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="debugging_policies">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 is-centered has-text-centered" style="color:white;">Debugging Policies</h2>
+    <div class="content has-text-justified">
+      <p>
+        We present a case study focused on policy
+        debugging through language-augmented latent space simulation. Our procedure is as follows: (i) we consult Large
+        Language Models (LLMs) to generate a base set of natural
+        language concepts relevant to, for example, a rural driving
+        scenario; (ii) we collect driving policy rollouts along with intermediate features, filtering out less pertinent concepts based
+        on similarity statistics, and potentially human judgment; (iii)
+        we then evaluate the policy by replacing image pixel features
+        with textual features drawn from various subsets of these
+        relevant concepts; (iv) lastly, we pinpoint specific concepts
+        whose presence across subsets leads to significant performance changes.
+      </p>
+      <video id="dollyzoom" autoplay muted loop playsinline width="70%" class="center">
+        <source src="./static/videos/debugging_policy.mp4"
+                type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="data_aug">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 is-centered has-text-centered" style="color:white;">Data Augmentation In Latent Space</h2>
+    <div class="content has-text-justified">
+      <p>
+        We showcase the performance improve-
+        ments achieved through data augmentation using language-
+        augmented latent space simulation. Our procedure is as
+        follows: (i) We first identify a set of target concepts likely
+        to appear in the training data that are candidates for replacement, 
+        selecting Tree and Dark for this experiment;
+        (ii) We then consult LLMs to suggest possible replacement
+        concepts; in this experiments, they are broadly defined as
+        any non-drivable objects or entities likely to appear in a
+        driving scenario; (iii) Finally, we randomly swap image
+        pixel features—those exhibiting high similarity to the target
+        concepts—with the textual features corresponding to these
+        suggested replacement concepts.
+      </p>
+      <video id="dollyzoom" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/data_aug.mp4"
+                type="video/mp4">
+      </video>
+      <img src="./static/images/data_aug_table.png"
+           width="70%"
+           class="center"
+      />
+      <div class="content has-text-justified">
+        <p>
+          <b>Improved generalization from data augmentation.</b> We augment training with unseen yet potentially
+          relevant concepts from LLMs via language-augmented latent space simulation to improve performance. 
+          The labels are the scenarios in Tab. I in the paper (RSDDC is <u>R</u>ural, <u>S</u>pring, <u>D</u>ry, <u>D</u>ay, <u>C</u>ar).
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="real_car">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 is-centered has-text-centered" style="color:white;">Real-car Results</h2>
+    <div class="content has-text-justified">
+      <p>
+        The tests were carried out within a rural test track during the summer season and
+        spanned various times of the day. Importantly, the evaluation
+        took place on different road segments and occurred two
+        years subsequent to the summer data used in the training set,
+        allowing us to assess performance amid noticeable changes
+        in the environment. To further showcase the generalization ability of leveraging representations from the foundation models,
+        we test the model on objects that are not seen at all during the training.
+      </p>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h4 class="title is-4 is-centered has-text-centered">Lane Following</h4>
+        <div class="content has-text-justified">
+          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/real/lane_following_trial2_20x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    
+    <h4 class="title is-4 is-centered has-text-centered">Obstacle Avoidance</h4>
+    <div class="columns is-centered">
+      <div class="column">
+        <h4 class="subtitle is-4 is-centered has-text-centered">Obstacle Course</h4>
+        <div class="content">
+          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/real/obstacle_course_trial2_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column">
+        <h4 class="subtitle is-4 is-centered has-text-centered">Traffic Cones</h4>
+        <div class="columns is-centered">
+          <div class="column content">
+            <video id="matting-video" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/real/cones_edited_4x.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column">
+        <h4 class="subtitle is-4 is-centered has-text-centered">Toy House</h4>
+        <div class="content">
+          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/real/house_edited_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column">
+        <h4 class="subtitle is-4 is-centered has-text-centered">Pedestrian</h4>
+        <div class="columns is-centered">
+          <div class="column content">
+            <video id="matting-video" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/real/pedestrian_edited_4x.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column">
+        <h4 class="subtitle is-4 is-centered has-text-centered">Roadblock</h4>
+        <div class="content">
+          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/real/roadblock_edited_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column">
+          <h4 class="subtitle is-4 is-centered has-text-centered">Chairs</h4>
+          <div class="content">
+            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/real/chairs_edited_4x.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>TBU</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer black-background">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <!-- <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p> -->
+          <p>
+              This website template is borrowed from the great <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
